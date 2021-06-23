@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <!-- 쿼리문 작성 -->
+    
+<mapper namespace="com.oidc.social.dao.SocialMapper">
+<!--	&lt;!&ndash; 회원가입 진행 &ndash;&gt;-->
+<!--	<insert id="insertUser" parameterType="userDto">-->
+<!--        INSERT INTO USERINFO(USERNAME, USERID, USERPW, USERAGE, USERAREA, USERJOB, USERINTEREST, USEREMAIL, USERPHONE, USERSEX) VALUES (#{userName}, #{userId}, #{userPw}, #{userAge}, #{userArea}, #{userJob}, #{userInterest} ,#{userEmail}, #{userPhone}, #{userSex})-->
+<!--    </insert>-->
+<!--    -->
+<!--    &lt;!&ndash; 중복 회원 확인  &ndash;&gt;-->
+<!--     <select id='checkUser' parameterType="string" resultType="string">-->
+<!--     	SELECT UID FROM USERINFO WHERE USERID=#{userId}-->
+<!--     </select>-->
+<!--     -->
+<!--     &lt;!&ndash; 로그인 진행 &ndash;&gt;-->
+<!--     <select id = 'login' parameterType="string" resultType="string">-->
+<!--     	SELECT USERID, USERPW FROM USERINFO WHERE USERID=#{userId} and USERPW=#{userPw}-->
+<!--     </select>-->
+<!--     -->
+<!--     &lt;!&ndash; 마이페이지 이메일 get &ndash;&gt;-->
+<!--     <select id = 'getemail' parameterType = "string" resultType = "string">-->
+<!--     	SELECT USEREMAIL FROM USERINFO WHERE USERID = #{userId}-->
+<!--     </select>-->
+<!--     -->
+<!--     &lt;!&ndash; 회원 탈퇴 &ndash;&gt;-->
+<!--    <delete id="deleteUser" parameterType="string">-->
+<!--        DELETE FROM USERINFO WHERE userId = #{userId}-->
+<!--    </delete>-->
+<!--    -->
+<!--    <delete id="deleteMajor" parameterType = "string">-->
+<!--    	DELETE FROM USERMAJOR WHERE UID = #{uid}-->
+<!--    </delete>-->
+<!--    -->
+<!--    &lt;!&ndash; 흥미검사 유무 확인 &ndash;&gt;-->
+<!--    <select id="checkInterest" parameterType = "string" resultType="string">-->
+<!--    	SELECT USERCHECK FROM USERINFO WHERE USERID = #{userId}-->
+<!--    </select>    -->
+    
+<!--     <update id="updateUser" parameterType="userDto">
+        UPDATE user 
+        SET userPw = #{userPw}, userName = #{userName}, userGender = #{userGender}, userEmail = #{userEmail} 
+        WHERE userId = #{userId}
+    </update>     -->
+    
+
+     
+     
+<!--     <select id="selectOneUser" parameterType="string" resultType="userDto">
+        SELECT * FROM USERINFO WHERE userId = #{userId}
+    </select>
+
+    <select id="selectAllUser" resultType="userDto">
+        SELECT * FROM USERINFO
+    </select> -->
+</mapper>
