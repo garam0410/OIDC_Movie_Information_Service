@@ -14,7 +14,7 @@ public class MainController {
     public String result = "";
 
     @Autowired
-    private MovieMapper userMapper;
+    private MovieMapper movieMapper;
 
     @GetMapping("/test")
     public String test(){

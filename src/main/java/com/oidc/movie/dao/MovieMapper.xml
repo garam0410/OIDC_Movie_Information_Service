@@ -5,7 +5,7 @@
     
     <!-- 쿼리문 작성 -->
     
-<mapper namespace="com.oidc.social.dao.SocialMapper">
+<mapper namespace="com.oidc.social.dao.MovieMapper">
 <!--	&lt;!&ndash; 회원가입 진행 &ndash;&gt;-->
 <!--	<insert id="insertUser" parameterType="userDto">-->
 <!--        INSERT INTO USERINFO(USERNAME, USERID, USERPW, USERAGE, USERAREA, USERJOB, USERINTEREST, USEREMAIL, USERPHONE, USERSEX) VALUES (#{userName}, #{userId}, #{userPw}, #{userAge}, #{userArea}, #{userJob}, #{userInterest} ,#{userEmail}, #{userPhone}, #{userSex})-->
