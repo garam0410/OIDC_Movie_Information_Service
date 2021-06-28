@@ -72,16 +72,24 @@ public class ParseMovie {
 
             for(int i = 0; i<item.size(); i++){
                 JSONObject tmp = (JSONObject)item.get(i);
+
                 String title = (String)tmp.get("title");
                 title = title.replaceAll("<b>","");
                 title = title.replaceAll("</b>","");
+
                 String subtitle = (String)tmp.get("subtitle");
                 String image = (String)tmp.get("image");
                 String pubTitle = (String)tmp.get("pubTitle");
+
                 String director = (String)tmp.get("director");
-                director = director.substring(0, director.length()-1);
+                if(director.length() != 0){
+                    director = director.substring(0, director.length()-1);
+                }
+
                 String actor = (String)tmp.get("actor");
-                actor = actor.substring(0, actor.length()-1);
+                if(actor.length() != 0){
+                    actor = actor.substring(0, actor.length()-1);
+                }
 
                 MovieDto movie = new MovieDto(title, subtitle, image, pubTitle, director, actor);
 
