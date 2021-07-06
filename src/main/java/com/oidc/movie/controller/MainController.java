@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 @ComponentScan(basePackages="com.oidc.movie.dao")
@@ -27,11 +28,27 @@ public class MainController {
         return "movie";
     }
 
+    @GetMapping(path="/hotmovierank")
+    public List<MovieDto> hotMovieRank(){
+
+        ParseMovie parseMovie = new ParseMovie(movieMapper.getMovieRank());
+        List<MovieDto> list = parseMovie.getHotMovieRank();
+
+        return list;
+    }
+
     @GetMapping(path="/searchmovie")
     public List<MovieDto> searchmovie(@RequestParam String query){
 
         ParseMovie parseMovie = new ParseMovie(query);
 
         return parseMovie.getList();
+    }
+
+    @GetMapping(path = "/movieinfo")
+    public List<MovieDto> movieinfo(@RequestParam String title){
+        ParseMovie parseMovie = new ParseMovie(title);
+
+        return parseMovie.getInfo();
     }
 }

@@ -1,11 +1,12 @@
 package com.oidc.movie.parse;
 
 import com.oidc.movie.dto.MovieDto;
-import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.nodes.Document;
+import org.jsoup.Jsoup;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,11 +23,47 @@ public class ParseMovie {
 
     String clientId= "gqQSDSXctJYArTsqvLae";
     String clientSecret = "aRwkVaPsfo";
+
     String query = null;
+    List<MovieDto> list = null;
+
+    String title = "", summary = "", open = "", genre = "", country = "", grade = ""
+            , runningtime = "",subtitle = "",image = "",pubTitle = "",director = "",actor = "";
 
     // 생성자
     public ParseMovie(String query){
         this.query = query;
+    }
+
+    public ParseMovie(List<MovieDto> list){
+        this.list = list;
+    }
+
+    // 영화 순위 데이터
+    public List<MovieDto> getHotMovieRank(){
+
+        for(int i = 0; i<list.size(); i++){
+
+            try {
+                query = list.get(i).getTitle();
+
+                String json = parse();
+
+                JSONParser parser = new JSONParser();
+                JSONObject obj = null;
+                obj = (JSONObject)parser.parse(json);
+
+                JSONArray item = (JSONArray)obj.get("items");
+                JSONObject tmp = (JSONObject) item.get(0);
+                image = (String) tmp.get("image");
+
+                list.get(i).setImage(image);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 
     // 영화 데이터 parse
@@ -52,7 +89,67 @@ public class ParseMovie {
         return responseBody;
     }
 
-    // 데이터 처리
+    // 데이터 처리(영화 상세정보 추출)
+    public List<MovieDto> getInfo() {
+
+        query = query.replaceAll(" ","");
+
+        String url = "https://search.naver.com/search.naver?where=nexearch&query=" + query + "+정보";
+
+        // parse 수행
+        String json = parse();
+
+        // 최종 반환할 리스트
+        List<MovieDto> list = null;
+        list = new ArrayList<MovieDto>();
+
+        try {
+            Document document = Jsoup.connect(url).get();
+            summary = document.body().getElementsByClass("text _content_text").get(0).text();
+            open = document.body().getElementsByTag("dd").get(0).text();
+            grade = document.body().getElementsByTag("dd").get(1).text();
+            genre = document.body().getElementsByTag("dd").get(2).text();
+            country = document.body().getElementsByTag("dd").get(3).text();
+            runningtime = document.body().getElementsByTag("dd").get(4).text();
+
+            JSONParser parser = new JSONParser();
+            JSONObject obj = (JSONObject)parser.parse(json);
+            JSONArray item = (JSONArray)obj.get("items");
+
+            for(int i = 0; i<item.size(); i++) {
+                JSONObject tmp = (JSONObject) item.get(i);
+
+                title = (String) tmp.get("title");
+                title = title.replaceAll("<b>", "");
+                title = title.replaceAll("</b>", "");
+
+                subtitle = (String) tmp.get("subtitle");
+                image = (String) tmp.get("image");
+                pubTitle = (String) tmp.get("pubTitle");
+
+                director = (String) tmp.get("director");
+                if (director.length() != 0) {
+                    director = director.substring(0, director.length() - 1);
+                }
+
+                actor = (String) tmp.get("actor");
+                if (actor.length() != 0) {
+                    actor = actor.substring(0, actor.length() - 1);
+                }
+            }
+
+            MovieDto movie = new MovieDto(title,subtitle,image,pubTitle,director,actor,open,grade,genre,country,runningtime,summary);
+            System.out.println(movie);
+            list.add(movie);
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    // 데이터 처리(영화 리스트 추출)
     public List<MovieDto> getList(){
 
         // 최종 반환할 리스트
