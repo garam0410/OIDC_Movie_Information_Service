@@ -7,6 +7,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -25,6 +27,7 @@ public class ParseMovie {
     String clientSecret = "aRwkVaPsfo";
 
     String query = null;
+    int min = 0, max = 0, count = 0, love = 0;
     List<MovieDto> list = null;
 
     String title = "", summary = "", open = "", genre = "", country = "", grade = ""
@@ -33,6 +36,14 @@ public class ParseMovie {
     // 생성자
     public ParseMovie(String query){
         this.query = query;
+    }
+
+    public ParseMovie(String title, int min, int max, int count, int love){
+        this.query = title;
+        this.min = min;
+        this.max = max;
+        this.count = count;
+        this.love = love;
     }
 
     public ParseMovie(List<MovieDto> list){
@@ -105,12 +116,42 @@ public class ParseMovie {
 
         try {
             Document document = Jsoup.connect(url).get();
-            summary = document.body().getElementsByClass("text _content_text").get(0).text();
-            open = document.body().getElementsByTag("dd").get(0).text();
-            grade = document.body().getElementsByTag("dd").get(1).text();
-            genre = document.body().getElementsByTag("dd").get(2).text();
-            country = document.body().getElementsByTag("dd").get(3).text();
-            runningtime = document.body().getElementsByTag("dd").get(4).text();
+            if(document.body().getElementsByClass("text _content_text").size()==0){
+                summary = document.body().getElementsByClass("desc _text").get(0).text();
+            }
+            else{
+                summary = document.body().getElementsByClass("text _content_text").get(0).text();
+            }
+
+            Elements data = document.body().getElementsByTag("dt");
+
+            String[] array = data.text().split(" ");
+
+            for(int i = 0; i<array.length; i++){
+                String value = document.getElementsByTag("dd").get(i).text();
+                System.out.println(array[i]);
+                System.out.println(value);
+                System.out.println("----------");
+
+                if(array[i].equals("개봉")){
+                    open = value;
+                }
+                else if(array[i].equals("등급")){
+                    grade = value;
+                }
+                else if(array[i].equals("장르")){
+                    genre = value;
+                }
+                else if(array[i].equals("국가")){
+                    country = value;
+                }
+                else if(array[i].equals("러닝타임")){
+                    runningtime = value;
+                }
+                else if(array[i].equals("개요")){
+                    runningtime = value;
+                }
+            }
 
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject)parser.parse(json);
@@ -138,7 +179,7 @@ public class ParseMovie {
                 }
             }
 
-            MovieDto movie = new MovieDto(title,subtitle,image,pubTitle,director,actor,open,grade,genre,country,runningtime,summary);
+            MovieDto movie = new MovieDto(title,subtitle,image,pubTitle,director,actor,open,grade,genre,country,runningtime,summary, max, min ,count, love);
             System.out.println(movie);
             list.add(movie);
 

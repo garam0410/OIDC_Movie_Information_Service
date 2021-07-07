@@ -15,6 +15,11 @@ public class MovieDto {
     private String country;
     private String runningtime;
 
+    private int max;
+    private int min;
+    private int count;
+    private int love;
+
     public MovieDto(){}
 
     // 리스트 추출
@@ -28,7 +33,7 @@ public class MovieDto {
     }
 
     // 상세정보 추출
-    public MovieDto(String title,String subtitle, String image, String pubTitle, String director, String actor, String open, String grade, String genre, String country, String runningtime, String summary){
+    public MovieDto(String title,String subtitle, String image, String pubTitle, String director, String actor, String open, String grade, String genre, String country, String runningtime, String summary, int max, int min, int count, int love){
         this.title = title;
         this.subtitle = subtitle;
         this.image = image;
@@ -41,6 +46,10 @@ public class MovieDto {
         this.country = country;
         this.runningtime = runningtime;
         this.summary = summary;
+        this.min = min;
+        this.max = max;
+        this.count = count;
+        this.love = love;
     }
 
     public void setTitle(String title){
@@ -137,5 +146,37 @@ public class MovieDto {
 
     public String getSummary() {
         return summary;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getLove() {
+        return love;
+    }
+
+    public void setLove(int love) {
+        this.love = love;
     }
 }

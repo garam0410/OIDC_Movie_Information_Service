@@ -9,4 +9,30 @@
     <select id="getMovieRank" resultType="movieDto">
         SELECT MOVIEINFO.TITLE FROM MOVIEINFO, MOVIERANK WHERE MOVIERANK.MID = MOVIEINFO.MID
     </select>
+
+    <select id="getBPM" resultType="movieDto" parameterType="String">
+        SELECT MAX(BPM) AS MAX, MIN(BPM) AS MIN FROM BPMDATA, MOVIEINFO WHERE MOVIEINFO.MID = BPMDATA.MID AND MOVIEINFO.TITLE=#{title};
+    </select>
+
+    <select id="getCount" resultType="integer" parameterType="String">
+        SELECT COUNT(*) AS COUNT FROM BPMTEST, MOVIEINFO WHERE MOVIEINFO.MID = BPMTEST.MID AND MOVIEINFO.TITLE=#{title};
+    </select>
+
+    <select id="userLoveCheck" resultType="String" parameterType="String">
+        SELECT MOVIELOVE.UID FROM MOVIELOVE,MOVIEINFO,USERINFO WHERE MOVIEINFO.MID = MOVIELOVE.MID AND MOVIELOVE.UID=USERINFO.UID AND MOVIEINFO.TITLE=#{title} AND USERINFO.USERID=#{userId};
+    </select>
+
+    <delete id="userLoveDelete" parameterType="String">
+        DELETE FROM MOVIELOVE USING MOVIELOVE
+	        INNER JOIN MOVIEINFO INNER JOIN USERINFO
+                WHERE MOVIEINFO.MID = MOVIELOVE.MID AND MOVIEINFO.TITLE=#{title} AND USERINFO.UID = MOVIELOVE.UID AND USERINFO.USERID=#{userId};
+    </delete>
+
+    <insert id="userLoveInsert" parameterType="String">
+        INSERT INTO MOVIELOVE(UID, MID) SELECT USERINFO.UID, MOVIEINFO.MID FROM MOVIEINFO, USERINFO WHERE USERINFO.USERID=#{userId} AND MOVIEINFO.TITLE=#{title};
+    </insert>
+
+    <insert id="insertMovieInfo" parameterType="String">
+        INSERT INTO MOVIEINFO(TITLE) SELECT #{title} FROM DUAL WHERE NOT EXISTS(SELECT TITLE FROM MOVIEINFO WHERE TITLE=#{title})
+    </insert>
 </mapper>
