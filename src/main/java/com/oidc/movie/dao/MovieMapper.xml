@@ -11,7 +11,7 @@
     </select>
 
     <select id="getBPM" resultType="movieDto" parameterType="String">
-        SELECT BMAX, BMIN FROM MOVIEINFO WHERE TITLE=#{title};
+        SELECT BMAX AS MAX, BMIN AS MIN FROM MOVIEINFO WHERE TITLE=#{title};
     </select>
 
     <select id="getCount" resultType="integer" parameterType="String">
