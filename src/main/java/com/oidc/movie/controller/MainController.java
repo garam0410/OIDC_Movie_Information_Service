@@ -70,6 +70,8 @@ public class MainController {
             max = bpm.get(0).getMax();
         }catch(NullPointerException e) {
             System.out.println("데이터가 없습니다");
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("데이터가 없습니다.");
         }
 
         ParseMovie parseMovie = new ParseMovie(title, min, max, count, love);
