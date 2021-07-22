@@ -11,11 +11,11 @@
     </select>
 
     <select id="getBPM" resultType="movieDto" parameterType="String">
-        SELECT MAX(BPM) AS MAX, MIN(BPM) AS MIN FROM BPMDATA, MOVIEINFO WHERE MOVIEINFO.MID = BPMDATA.MID AND MOVIEINFO.TITLE=#{title};
+        SELECT BMAX, BMIN FROM MOVIEINFO WHERE TITLE=#{title};
     </select>
 
     <select id="getCount" resultType="integer" parameterType="String">
-        SELECT COUNT(*) AS COUNT FROM BPMTEST, MOVIEINFO WHERE MOVIEINFO.MID = BPMTEST.MID AND MOVIEINFO.TITLE=#{title};
+        SELECT COUNT(BPMTEST.MID) AS COUNT FROM BPMTEST, MOVIEINFO WHERE MOVIEINFO.MID = BPMTEST.MID AND MOVIEINFO.TITLE=#{title};
     </select>
 
     <select id="userLoveCheck" resultType="String" parameterType="String">
