@@ -10,6 +10,10 @@
         SELECT MOVIEINFO.TITLE FROM MOVIEINFO, MOVIERANK WHERE MOVIERANK.MID = MOVIEINFO.MID
     </select>
 
+    <select id="checkTitle" resultType="long" parameterType="String">
+        SELECT MID FROM MOVIEINFO WHERE TITLE=#{title}
+    </select>
+
     <select id="getBPM" resultType="movieDto" parameterType="String">
         SELECT BMAX AS MAX, BMIN AS MIN FROM MOVIEINFO WHERE TITLE=#{title};
     </select>
@@ -33,6 +37,6 @@
     </insert>
 
     <insert id="insertMovieInfo" parameterType="String">
-        INSERT INTO MOVIEINFO(TITLE) SELECT #{title} FROM DUAL WHERE NOT EXISTS(SELECT TITLE FROM MOVIEINFO WHERE TITLE=#{title})
+        INSERT INTO MOVIEINFO(TITLE) VALUES (#{title})
     </insert>
 </mapper>

@@ -88,13 +88,17 @@ public class MainController {
         System.out.println(state);
 
         try{
+            if(movieMapper.checkTitle(title)==null){
+                movieMapper.insertMovieInfo(title);
+            }
+
             if(state.trim().equals("delete")){
                 movieMapper.userLoveDelete(userId,title);
                 result = "좋아요 취소";
             }
             else if(state.trim().equals("insert")){
                 movieMapper.userLoveInsert(userId,title);
-                movieMapper.insertMovieInfo(title);
+                //movieMapper.insertMovieInfo(title);
                 result = "좋아요";
             }
         }catch(Exception e){
