@@ -107,4 +107,16 @@ public class MainController {
 
         return result;
     }
+
+    @GetMapping(path = "/getlovemoive")
+    public List<MovieDto> getLoveMoive(@RequestParam String userId){
+        try{
+            ParseMovie parseMovie = new ParseMovie(movieMapper.getLoveMoive(userId));
+            List<MovieDto> list = parseMovie.getHotMovieRank();
+            return list;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

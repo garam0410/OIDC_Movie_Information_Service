@@ -39,4 +39,8 @@
     <insert id="insertMovieInfo" parameterType="String">
         INSERT INTO MOVIEINFO(TITLE) VALUES (#{title})
     </insert>
+
+    <select id = "getLoveMoive" parameterType = "String" resultType="movieDto">
+        SELECT MOVIEINFO.TITLE FROM MOVIEINFO, MOVIELOVE, USERINFO WHERE MOVIEINFO.MID = MOVIELOVE.MID AND USERINFO.UID = MOVIELOVE.UID AND USERINFO.USERID = #{userId}
+    </select>
 </mapper>
