@@ -15,4 +15,5 @@ public interface MovieMapper {
     public void userLoveInsert(String userId, String title);
     public void insertMovieInfo(String title);
     public List<MovieDto> getLoveMoive(String userId);
+    public List<MovieDto> getWatchMovie(String userId);
 }

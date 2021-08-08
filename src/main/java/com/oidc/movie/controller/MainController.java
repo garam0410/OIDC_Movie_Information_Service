@@ -119,4 +119,16 @@ public class MainController {
             return null;
         }
     }
+
+    @GetMapping(path = "/getwatchmovie")
+    public List<MovieDto> getWatchMovie(@RequestParam String userId){
+        try{
+            ParseMovie parseMovie = new ParseMovie(movieMapper.getWatchMovie(userId));
+            List<MovieDto> list = parseMovie.getHotMovieRank();
+            return list;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

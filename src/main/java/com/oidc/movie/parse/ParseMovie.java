@@ -65,12 +65,13 @@ public class ParseMovie {
                 obj = (JSONObject)parser.parse(json);
 
                 JSONArray item = (JSONArray)obj.get("items");
+
                 JSONObject tmp = (JSONObject) item.get(0);
                 image = (String) tmp.get("image");
 
                 list.get(i).setImage(image);
 
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

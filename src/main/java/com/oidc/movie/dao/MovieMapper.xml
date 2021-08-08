@@ -43,4 +43,8 @@
     <select id = "getLoveMoive" parameterType = "String" resultType="movieDto">
         SELECT MOVIEINFO.TITLE FROM MOVIEINFO, MOVIELOVE, USERINFO WHERE MOVIEINFO.MID = MOVIELOVE.MID AND USERINFO.UID = MOVIELOVE.UID AND USERINFO.USERID = #{userId}
     </select>
+
+    <select id = "getWatchMovie" parameterType="String" resultType="movieDto">
+        SELECT MOVIEINFO.TITLE FROM MOVIEINFO, BPMTEST, USERINFO WHERE MOVIEINFO.MID = BPMTEST.MID AND USERINFO.UID = BPMTEST.UID AND USERINFO.USERID = #{userId}
+    </select>
 </mapper>
