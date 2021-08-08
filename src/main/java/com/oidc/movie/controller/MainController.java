@@ -108,7 +108,7 @@ public class MainController {
         return result;
     }
 
-    @GetMapping(path = "/getlovemoive")
+    @GetMapping(path = "/getlovemovie")
     public List<MovieDto> getLoveMoive(@RequestParam String userId){
         try{
             ParseMovie parseMovie = new ParseMovie(movieMapper.getLoveMoive(userId));
