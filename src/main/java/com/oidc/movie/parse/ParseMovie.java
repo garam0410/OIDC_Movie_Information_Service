@@ -186,6 +186,8 @@ public class ParseMovie {
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
         return list;
