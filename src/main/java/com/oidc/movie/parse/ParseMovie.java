@@ -1,13 +1,14 @@
 package com.oidc.movie.parse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oidc.movie.dto.MovieDto;
 import org.json.simple.JSONArray;
+import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.*;
@@ -16,10 +17,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class ParseMovie {
 
@@ -76,6 +75,47 @@ public class ParseMovie {
             }
         }
         return list;
+    }
+
+    // 협업필터링으로 분석되어 나온 영화 파싱
+    public String getCollaborateMovie(){
+        String uid = query;
+        System.out.println(uid);
+        String linkUrl = "http://192.168.25.9:8000/valuerate/rec?uid=" + uid;
+        InputStream inputStream = null;
+        String resultString = "";
+
+        try{
+            URL url = new URL(linkUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.connect();
+            System.out.println(conn.getResponseCode());
+            int response = conn.getResponseCode();
+            inputStream = conn.getInputStream();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            resultString = convertInputStreamToString(inputStream);
+            System.out.println(resultString);
+
+            this.list = Arrays.asList(objectMapper.readValue(resultString, MovieDto[].class));
+            System.out.println(Arrays.toString(list.toArray()));
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return resultString;
+    }
+
+    // Buffer 변환
+    public String convertInputStreamToString(InputStream stream) throws IOException, UnsupportedEncodingException {
+        BufferedReader bf;
+        bf = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        return bf.readLine();
     }
 
     // 영화 데이터 parse

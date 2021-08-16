@@ -38,6 +38,16 @@ public class MainController {
         return list;
     }
 
+    // 영화 사용자별 협업필터링 결과
+    @GetMapping(path="/usermovierank")
+    public List<MovieDto> userMovieRank(@RequestParam String uid){
+        ParseMovie parseMovie = new ParseMovie(uid);
+        parseMovie.getCollaborateMovie();
+        List<MovieDto> list = parseMovie.getHotMovieRank();
+
+        return list;
+    }
+
     // 영화 검색
     @GetMapping(path="/searchmovie")
     public List<MovieDto> searchmovie(@RequestParam String query){
