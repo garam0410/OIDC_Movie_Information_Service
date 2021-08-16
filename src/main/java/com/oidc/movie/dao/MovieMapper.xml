@@ -6,6 +6,9 @@
     <!-- 쿼리문 작성 -->
     
 <mapper namespace="com.oidc.movie.dao.MovieMapper">
+    <select id = "getUid" parameterType="String" resultType="long">
+        SELECT UID FROM USERINFO WHERE USERID=#{userId}
+    </select>
     <select id="getMovieRank" resultType="movieDto">
         SELECT MOVIEINFO.TITLE FROM MOVIEINFO, MOVIERANK WHERE MOVIERANK.MID = MOVIEINFO.MID
     </select>

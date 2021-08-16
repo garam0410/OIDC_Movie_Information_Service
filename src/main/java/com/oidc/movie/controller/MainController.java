@@ -40,8 +40,9 @@ public class MainController {
 
     // 영화 사용자별 협업필터링 결과
     @GetMapping(path="/usermovierank")
-    public List<MovieDto> userMovieRank(@RequestParam String uid){
-        ParseMovie parseMovie = new ParseMovie(uid);
+    public List<MovieDto> userMovieRank(@RequestParam String userId){
+        Long uid = movieMapper.getUid(userId);
+        ParseMovie parseMovie = new ParseMovie(String.valueOf(uid));
         parseMovie.getCollaborateMovie();
         List<MovieDto> list = parseMovie.getHotMovieRank();
 
