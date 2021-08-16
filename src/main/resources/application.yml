@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://27.96.130.250:3306/bpm?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mariadb://118.67.132.152:3306/bpm?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: bpmservice
