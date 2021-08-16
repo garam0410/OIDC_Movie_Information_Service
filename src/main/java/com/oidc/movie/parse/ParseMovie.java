@@ -52,7 +52,7 @@ public class ParseMovie {
     // 영화 순위 데이터
     public List<MovieDto> getHotMovieRank(){
 
-        for(int i = 0; i<3; i++){
+        for(int i = 0; i<list.size(); i++){
 
             try {
                 query = list.get(i).getTitle();
