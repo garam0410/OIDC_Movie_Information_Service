@@ -81,41 +81,23 @@ public class ParseMovie {
     public String getCollaborateMovie(){
         String uid = query;
         System.out.println(uid);
-        String linkUrl = "http://192.168.25.9:8000/valuerate/rec?uid=" + uid;
+        String linkUrl = "http://118.67.132.152:8083/valuerate/rec/?uid=" + uid;
         InputStream inputStream = null;
         String resultString = "";
 
         try{
-            URL url = new URL(linkUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.connect();
-            System.out.println(conn.getResponseCode());
-            int response = conn.getResponseCode();
-            inputStream = conn.getInputStream();
+            Document document = Jsoup.connect(linkUrl).get();
+
+            resultString = document.body().text();
+            resultString = resultString.replaceAll("'", "\"");
 
             ObjectMapper objectMapper = new ObjectMapper();
-
-            resultString = convertInputStreamToString(inputStream);
-            System.out.println(resultString);
-
             this.list = Arrays.asList(objectMapper.readValue(resultString, MovieDto[].class));
-            System.out.println(Arrays.toString(list.toArray()));
 
         }catch(Exception e){
             e.printStackTrace();
         }
         return resultString;
-    }
-
-    // Buffer 변환
-    public String convertInputStreamToString(InputStream stream) throws IOException, UnsupportedEncodingException {
-        BufferedReader bf;
-        bf = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-        return bf.readLine();
     }
 
     // 영화 데이터 parse
