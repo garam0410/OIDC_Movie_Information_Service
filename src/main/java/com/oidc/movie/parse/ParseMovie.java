@@ -52,7 +52,7 @@ public class ParseMovie {
     // 영화 순위 데이터
     public List<MovieDto> getHotMovieRank(){
 
-        for(int i = 0; i<list.size(); i++){
+        for(int i = 0; i<3; i++){
 
             try {
                 query = list.get(i).getTitle();
@@ -82,12 +82,11 @@ public class ParseMovie {
         String uid = query;
         System.out.println(uid);
         String linkUrl = "http://118.67.132.152:8083/valuerate/rec/?uid=" + uid;
-        InputStream inputStream = null;
         String resultString = "";
 
         try{
             Document document = Jsoup.connect(linkUrl).get();
-
+            Thread.sleep(1000);
             resultString = document.body().text();
             resultString = resultString.replaceAll("'", "\"");
 

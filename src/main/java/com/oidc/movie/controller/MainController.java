@@ -45,6 +45,7 @@ public class MainController {
         ParseMovie parseMovie = new ParseMovie(String.valueOf(uid));
         parseMovie.getCollaborateMovie();
         List<MovieDto> list = parseMovie.getHotMovieRank();
+        list = parseMovie.getHotMovieRank();
 
         return list;
     }
