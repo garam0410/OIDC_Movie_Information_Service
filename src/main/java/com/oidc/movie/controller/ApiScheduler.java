@@ -15,7 +15,7 @@ public class ApiScheduler {
 
     String serverIp = "http://118.67.132.152:8083";
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "* * 0 * * *")
     public void Analaysis(){
         System.out.println("-------------------------------");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -40,7 +40,7 @@ public class ApiScheduler {
         String resultString = "";
 
         try{
-            Document document = Jsoup.connect(linkUrl).timeout(3600000).get();
+            Document document = Jsoup.connect(linkUrl).timeout(25200000).get();
             Thread.sleep(1000);
             resultString = document.body().text();
 
@@ -56,7 +56,7 @@ public class ApiScheduler {
         String resultString = "";
 
         try{
-            Document document = Jsoup.connect(linkUrl).timeout(3600000).get();
+            Document document = Jsoup.connect(linkUrl).timeout(25200000).get();
             Thread.sleep(1000);
             resultString = document.body().text();
 
@@ -72,7 +72,7 @@ public class ApiScheduler {
         String resultString = "";
 
         try{
-            Document document = Jsoup.connect(linkUrl).timeout(3600000).get();
+            Document document = Jsoup.connect(linkUrl).timeout(25200000).get();
             Thread.sleep(1000);
             resultString = document.body().text();
 
@@ -88,7 +88,7 @@ public class ApiScheduler {
         String resultString = "";
 
         try{
-            Document document = Jsoup.connect(linkUrl).timeout(3600000).get();
+            Document document = Jsoup.connect(linkUrl).timeout(3600000*7).get();
             Thread.sleep(1000);
             resultString = document.body().text();
 
