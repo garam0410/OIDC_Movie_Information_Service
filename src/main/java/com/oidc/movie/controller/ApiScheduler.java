@@ -15,7 +15,7 @@ public class ApiScheduler {
 
     String serverIp = "http://118.67.132.152:8083";
 
-    @Scheduled(cron = "* 14 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void Analaysis(){
         System.out.println("-------------------------------");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
