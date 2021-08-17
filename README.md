@@ -1,4 +1,4 @@
-# OIDC_User_Management_Service (영화 정보 서비스)
+# OIDC_Movie_Information_Service (영화 정보 서비스)
 심박수 기반 영화 순위 제공서비스 'Movie by Heart'의 영화 정보 서비스를 구성하는 레포지토리
 
 ## Controller
